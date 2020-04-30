@@ -1,0 +1,40 @@
+version: '3.7'
+
+x-logging:
+  &default-logging
+  options:
+    max-size: '100m'
+    max-file: '5'
+  driver: 'json-file'
+
+services:
+  spring-oidc-webapp-demo:
+    image: 'cocoradora/spring-oidc-webapp-demo'
+    container_name: 'spring-oidc-webapp-demo'
+    restart: 'unless-stopped'
+    ports:
+      - 5410:8080
+    logging: *default-logging
+    
+  keycloak:
+    image: 'jboss/keycloak'
+    container_name: 'keycloak'
+    restart: 'unless-stopped'
+    volumes:
+      - 'keycloak-realm:/tmp/import:ro'
+    environment:
+      - KEYCLOAK_USER=keycloak
+      - KEYCLOAK_PASSWORD=keycloak
+      - KEYCLOAK_IMPORT=/tmp/import/realm.json
+    ports:
+      - 5420:8080
+    logging: *default-logging
+
+
+volumes:
+  keycloak-realm:
+    driver: 'local'
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '${PWD}/etc'

@@ -1,0 +1,17 @@
+keycloak:
+  auth-server-url: http://__host__:5420/auth
+  realm: SpringBootKeycloak
+  resource: login-app
+  public-client: true
+  principal-attribute: preferred_username
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: DEBUG
+
+spring:
+  thymeleaf:
+    cache: false

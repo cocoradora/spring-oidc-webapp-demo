@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/misc :: head" />
+<body>
+<div class="container">
+
+    <div th:include="fragments/layouts :: header" />
+    
+    <a th:href="@{/customers}">login</a>
+
+    <div th:include="fragments/layouts :: footer" />
+</div>
+
+</body>
+</html>
